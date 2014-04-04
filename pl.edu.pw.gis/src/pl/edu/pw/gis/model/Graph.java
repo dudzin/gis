@@ -37,15 +37,15 @@ public class Graph {
 	public void resort(int[] seq){
 		
 		int l = seq.length;
-		System.out.println("length: " + l + " seq: "); 
+		//System.out.println("length: " + l + " seq: "); 
 		for(int i =0;i <l;i++){
 			System.out.print(seq[i]);
 		}
-		
+		System.out.println();
 		for(int i =0; i< l;i++){
 			
 			nodes.set(i, before.get(seq[i]-1));
-			System.out.println("i:" + i + " seq[i]: " + seq[i]+ " node from seq: " + 	nodes.get(seq[i]-1));		
+			//System.out.println("i:" + i + " seq[i]: " + seq[i]+ " node from seq: " + 	nodes.get(i));		
 			
 		}
 		

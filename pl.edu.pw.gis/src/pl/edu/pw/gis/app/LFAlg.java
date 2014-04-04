@@ -47,6 +47,83 @@ public class LFAlg {
 				}
 				Collections.sort(iv);
 				c=1;
+				//
+				for (int i=0; i <iv.size();i++) {
+					if(c==iv.get(i)){
+						c++;
+						if(i==iv.size()-1){
+							
+							if(c>q && q!=0){
+								break;
+							}
+							
+							node.setColour(c);
+							int[] s=  {5,4,2,1,3,6};
+							if(is[0]==s[0] &&
+									is[1]==s[1] &&
+									is[2]==s[2] 
+								) {System.out.println("col set: " + c );};
+							if(l<c) l++;
+							break;
+						}
+					}else if(i==iv.size()-1){
+						//c++;
+						node.setColour(c);
+						int[] s=  {5,4,2,1,3,6};
+						if(is[0]==s[0] &&
+								is[1]==s[1] &&
+								is[2]==s[2] 
+							) {System.out.println("col set: " + c );};
+						//System.out.println("col set: " + c);
+						if(l<c) l++;
+						break;
+					}
+				}
+				if(c>q && q!=0){
+					break;
+				}
+				
+			}
+			if(l<q || q==0){
+				q=l;
+				//
+			}
+			//l=1;
+			System.out.println("Q:" + q + " l: " + l);
+			l=1;
+		}
+		return q;
+	}
+	
+	
+	public int exec(int[] seq){
+		
+		l=1;
+		q=0;
+		sort();
+		int c=1;
+		ArrayList<Integer> iv ;
+		//ArrayList<int[]> seq = getSeq(graph.getFirstNodes());
+		int j=0;
+		
+		graph.sort();
+		graph.saveBefore();
+		
+		//for(int j=0;j<graph.getFirstNodes();j++){
+		
+		//for (int[] is : seq) {
+			graph.restoreInitOrder();
+			graph.clearColouring();
+			graph.resort(seq);
+			j++;		
+			System.out.println("LF round: " +j + " of " + 1);
+			for (Node node : graph.getNodes()) {
+				iv =  new ArrayList<Integer>();
+				for(Node neighbour: node.getNeighbours()){
+					iv.add(neighbour.getColour());
+				}
+				Collections.sort(iv);
+				c=1;
 				for (int i=0; i <iv.size();i++) {
 					if(c==iv.get(i)){
 						c++;
@@ -78,7 +155,7 @@ public class LFAlg {
 			q=l;
 			System.out.println("Q:" + q);
 			
-		}
+		//}
 		return q;
 	}
 	

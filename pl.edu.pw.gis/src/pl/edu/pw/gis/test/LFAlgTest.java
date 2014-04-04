@@ -92,9 +92,10 @@ public class LFAlgTest {
 		assertEquals(2, lfalg.exec());
 		
 		
-		
-		//lfalg.setGraph(graphs.get(2));
-		//assertEquals(4, lfalg.exec());
+		System.out.println("Third Graph");
+		int[] i = {5,4,2,1,3,6};
+		lfalg.setGraph(graphs.get(2));
+		assertEquals(3, lfalg.exec());
 	}
 	
 	
