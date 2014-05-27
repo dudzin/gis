@@ -29,7 +29,7 @@ public class LFAlg {
 	
 	public int exec(){
 		
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		
 		l=1; // minimalna l chromatyczna w danej iteracji
 		q=0; // minimalna dotychczasowa l chromatyczna
@@ -44,12 +44,12 @@ public class LFAlg {
 		graph.sort();
 		graph.saveBefore();
 		round =0;
-		sortTime = System.currentTimeMillis()- startTime;
-		startTime = System.currentTimeMillis();
+		sortTime = System.nanoTime()- startTime;
+		startTime = System.nanoTime();
 		for (int[] is : seq) {
 			exec(is, seq.size());
 		}
-		executionTime = System.currentTimeMillis() - startTime;
+		executionTime = System.nanoTime() - startTime;
 		return q;
 	}
 	
