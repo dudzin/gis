@@ -20,7 +20,7 @@ public class JSONReader {
 	JSONParser parser;
 	ArrayList<Graph> graphs;
 	ArrayList<String> graphNames;
-	
+	int count;
 	public JSONReader(){
 		
 		parser = new JSONParser();
@@ -42,12 +42,15 @@ public class JSONReader {
 			
 			for (String name : graphNames) {
 				graph = new Graph();
+				count = 0;
 				msg = (JSONArray) jsonObject.get(name);
 				iterator = msg.iterator();
 				while (iterator.hasNext()) {
 					Node node = new Node();
+					node.setNumber(count);
 					graph.addNode(node);
 					iterator.next();
+					count++;
 				}
 				
 				msg = (JSONArray) jsonObject.get(name);

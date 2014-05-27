@@ -1,6 +1,7 @@
 package pl.edu.pw.gis.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -13,6 +14,28 @@ public class Graph {
 	public Graph(){
 		nodes = new ArrayList<>();
 		before  = new ArrayList<>();
+	}
+	
+	public Graph(ArrayList<Node> nodes, ArrayList<Node> before ){
+		ArrayList<Node> newnodes = new ArrayList<Node>();
+		ArrayList<Node> newbefore = new ArrayList<Node>();
+		Node nn;
+		ArrayList<Node> newneighbours;
+		for(Node n :nodes){
+			nn = new Node();
+			nn.setColour(n.getColour());
+			nn.setNumber(n.getNumber());
+			newneighbours = new ArrayList<Node>();
+			for(Node neighbour :n.getNeighbours()){
+				newneighbours.add(neighbour);
+			}
+			nn.setNeighbours(newneighbours);
+			newnodes.add(nn);
+		}
+		
+		
+		this.nodes = newnodes;
+		//this.before = (ArrayList<Node>) nodes.clone();
 	}
 	
 	public void clearColouring(){

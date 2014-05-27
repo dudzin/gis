@@ -80,22 +80,66 @@ public class LFAlgTest {
 	public void execTest() {
 		
 		lfalg.setGraph(graphs.get(0));
+		lfalg.exec();
+		ArrayList<Node> bestColouring = lfalg.getBestGraph().getNodes();
+		
+		for(int j =0 ;j< bestColouring.size() ; j++){
+			System.out.println("Node : " + bestColouring.get(j).getNumber()+"  Colour: " + bestColouring.get(j).getColour());
+		}
 		assertEquals(2, lfalg.exec());
 		
 		System.out.println("Second Graph");
 		
 		lfalg.setGraph(graphs.get(1));
 		assertEquals(2, lfalg.exec());
+		System.out.println("\nSecond Graph Statistics:");
+		System.out.println("Sort 	  Time: " + lfalg.getSortTime());
+		System.out.println("Execution Time: " + lfalg.getExecutionTime());
+		System.out.println("Breaks   Count: " + lfalg.getRejectedCount() + "\n");
+		bestColouring = lfalg.getBestGraph().getNodes();
+		
+		for(int j =0 ;j< bestColouring.size() ; j++){
+			System.out.println("Node : " + bestColouring.get(j).getNumber()+"  Colour: " + bestColouring.get(j).getColour());
+		}
 		
 		System.out.println("Fourth Graph");
 		lfalg.setGraph(graphs.get(3));
 		assertEquals(2, lfalg.exec());
+		System.out.println("\nFourth Graph Statistics:");
+		System.out.println("Sort 	  Time: " + lfalg.getSortTime());
+		System.out.println("Execution Time: " + lfalg.getExecutionTime());
+		System.out.println("Breaks   Count: " + lfalg.getRejectedCount() + "\n");
+		bestColouring = lfalg.getBestGraph().getNodes();
 		
+		for(int j =0 ;j< bestColouring.size() ; j++){
+			System.out.println("Node : " + bestColouring.get(j).getNumber()+"  Colour: " + bestColouring.get(j).getColour());
+		}
 		
 		System.out.println("Third Graph");
 		int[] i = {5,4,2,1,3,6};
 		lfalg.setGraph(graphs.get(2));
 		assertEquals(3, lfalg.exec());
+		System.out.println("\nThird Graph Statistics:");
+		System.out.println("Sort 	  Time: " + lfalg.getSortTime());
+		System.out.println("Execution Time: " + lfalg.getExecutionTime());
+		System.out.println("Breaks   Count: " + lfalg.getRejectedCount() + "\n");
+		
+		//Graph best = lfalg.getBestGraph();
+		bestColouring = lfalg.getBestGraph().getNodes();
+
+		for(int j =0 ;j< bestColouring.size() ; j++){
+			System.out.println("Node : " + bestColouring.get(j).getNumber()+"  Colour: " + bestColouring.get(j).getColour());
+		}
+		
+		
+		lfalg.exec(lfalg.getBestseq(), lfalg.getBestseq().length);
+		bestColouring = lfalg.getBestGraph().getNodes();
+
+		for(int j =0 ;j< bestColouring.size() ; j++){
+			System.out.println("Node : " + bestColouring.get(j).getNumber()+"  Colour: " + bestColouring.get(j).getColour());
+		}
+		
+		
 	}
 	
 	

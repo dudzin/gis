@@ -15,8 +15,13 @@ public class LFAlg {
 
 	//private int qmax;
 	private int qmax;
-
-	
+	private int round;
+	ArrayList<Integer> iv ;
+	private int c;
+	private long executionTime;
+	private long sortTime;
+	private int rejectedCount;
+	private int[] bestseq;
 	
 	public void sort(){
 		graph.sort();
@@ -24,142 +29,89 @@ public class LFAlg {
 	
 	public int exec(){
 		
+		long startTime = System.currentTimeMillis();
+		
 		l=1; // minimalna l chromatyczna w danej iteracji
 		q=0; // minimalna dotychczasowa l chromatyczna
 		sort();
-		int c=1;
-		ArrayList<Integer> iv ;
+		//int 
+		c=1;
+		rejectedCount =0;
 		//z³o¿onoœæ permutations
 		ArrayList<int[]> seq = getSeq(graph.getFirstNodes());
-		int j=0;
+		//int j=0;
 		//z³o¿onoœæ Collections.sort
 		graph.sort();
 		graph.saveBefore();
-		
+		round =0;
+		sortTime = System.currentTimeMillis()- startTime;
+		startTime = System.currentTimeMillis();
 		for (int[] is : seq) {
-			graph.restoreInitOrder();
-			graph.clearColouring();
-			graph.resort(is);
-			j++;		
-			System.out.println("LF round: " +j + " of " + seq.size());
-			for (Node node : graph.getNodes()) {
-				iv =  new ArrayList<Integer>();
-				//zbieramy kolory s¹siadów i sortujemy listê
-				for(Node neighbour: node.getNeighbours()){
-					iv.add(neighbour.getColour());
-				}
-				Collections.sort(iv);
-				c=1;
-				//
-				for (int i=0; i <iv.size();i++) {
-					if(c==iv.get(i)){
-						c++;
-						if(i==iv.size()-1){
-							
-							if(c>q && q!=0){
-								break;
-							}
-							
-							node.setColour(c);
-							/*int[] s=  {5,4,2,1,3,6};
-							if(is[0]==s[0] &&
-									is[1]==s[1] &&
-									is[2]==s[2] 
-								) {System.out.println("col set: " + c );};*/
-							if(l<c) l++;
-							break;
-						}
-					}else if(i==iv.size()-1){
-						//c++;
-						node.setColour(c);
-						/*int[] s=  {5,4,2,1,3,6};
-						if(is[0]==s[0] &&
-								is[1]==s[1] &&
-								is[2]==s[2] 
-							) {System.out.println("col set: " + c );};*/
-						//System.out.println("col set: " + c);
-						if(l<c) l++;
-						break;
-					}
-				}
-				if(c>q && q!=0){
-					break;
-				}
-				
-			}
-			if(l<q || q==0){
-				q=l;
-				//
-			}
-			//l=1;
-			System.out.println("Q:" + q + " l: " + l);
-			l=1;
+			exec(is, seq.size());
 		}
+		executionTime = System.currentTimeMillis() - startTime;
 		return q;
 	}
 	
 	
-	public int exec(int[] seq){
+	public void exec(int[] seq, int seqsize){
 		
-		l=1;
-		q=0;
-		sort();
-		int c=1;
-		ArrayList<Integer> iv ;
-		//ArrayList<int[]> seq = getSeq(graph.getFirstNodes());
-		int j=0;
-		
-		graph.sort();
-		graph.saveBefore();
-		
-		//for(int j=0;j<graph.getFirstNodes();j++){
-		
-		//for (int[] is : seq) {
-			graph.restoreInitOrder();
-			graph.clearColouring();
-			graph.resort(seq);
-			j++;		
-			System.out.println("LF round: " +j + " of " + 1);
-			for (Node node : graph.getNodes()) {
-				iv =  new ArrayList<Integer>();
-				for(Node neighbour: node.getNeighbours()){
+		graph.restoreInitOrder();
+		graph.clearColouring();
+		graph.resort(seq);
+		round++;		
+		System.out.println("LF round: " +round + " of " + seqsize);
+		for (Node node : graph.getNodes()) {
+			iv =  new ArrayList<Integer>();
+			//zbieramy kolory s¹siadów i sortujemy listê
+			for(Node neighbour: node.getNeighbours()){
+				if(neighbour.getColour()!= 0) {
 					iv.add(neighbour.getColour());
 				}
-				Collections.sort(iv);
-				c=1;
+			}
+			Collections.sort(iv);
+			c=1;
+			//
+			if(iv.size() ==0){
+				node.setColour(1);
+			}else {
 				for (int i=0; i <iv.size();i++) {
 					if(c==iv.get(i)){
 						c++;
-						if(i==iv.size()-1){
-							
+						if(i==iv.size()-1){							
 							if(c>q && q!=0){
-								break;
+								rejectedCount++;
+								return;
+								//break;
 							}
-							
 							node.setColour(c);
-							System.out.println("col set: " + c );
 							if(l<c) l++;
 							break;
 						}
 					}else if(i==iv.size()-1){
-						//c++;
 						node.setColour(c);
-						System.out.println("col set: " + c);
+						if(l<c) l++;
+						break;
+					}else {
+						node.setColour(c);
 						break;
 					}
 				}
-				if(c>q && q!=0){
-					break;
-				}
-				
 			}
-			
-			
+			if(c>q && q!=0){
+				rejectedCount++;
+				return;
+				//break;
+			}		
+		}
+		if(l<q || q==0){
 			q=l;
-			System.out.println("Q:" + q);
-			
-		//}
-		return q;
+			bestGraph = new Graph(graph.getNodes(), graph.getBefore());
+			bestseq = seq;
+			//
+		}
+		System.out.println("Q:" + q + " l: " + l);
+		l=1;
 	}
 	
 	
@@ -226,6 +178,46 @@ public class LFAlg {
 
 	public void setBestGraph(Graph bestGraph) {
 		this.bestGraph = bestGraph;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+	public long getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
+	}
+
+	public int getRejectedCount() {
+		return rejectedCount;
+	}
+
+	public void setRejectedCount(int rejectedCount) {
+		this.rejectedCount = rejectedCount;
+	}
+
+	public long getSortTime() {
+		return sortTime;
+	}
+
+	public void setSortTime(long sortTime) {
+		this.sortTime = sortTime;
+	}
+
+	public int[] getBestseq() {
+		return bestseq;
+	}
+
+	public void setBestseq(int[] bestseq) {
+		this.bestseq = bestseq;
 	}
 	
 }

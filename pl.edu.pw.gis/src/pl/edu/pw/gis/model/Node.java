@@ -6,6 +6,7 @@ public class Node {
 
 	private int colour;
 	private ArrayList<Node> neighbours;
+	private int number;
 	
 	public Node(){
 		neighbours = new ArrayList<Node>();
@@ -39,6 +40,14 @@ public class Node {
 	}
 	public void setNeighbours(ArrayList<Node> neighbours) {
 		this.neighbours = neighbours;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 	
