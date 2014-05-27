@@ -12,7 +12,7 @@ public class LFAlg {
 	private Graph bestGraph;
 	private int l;
 	private int q;
-	private int qmax;
+	//private int qmax;
 	
 	
 	public void sort(){
@@ -21,18 +21,17 @@ public class LFAlg {
 	
 	public int exec(){
 		
-		l=1;
-		q=0;
+		l=1; // minimalna l chromatyczna w danej iteracji
+		q=0; // minimalna dotychczasowa l chromatyczna
 		sort();
 		int c=1;
 		ArrayList<Integer> iv ;
+		//z³o¿onoœæ permutations
 		ArrayList<int[]> seq = getSeq(graph.getFirstNodes());
 		int j=0;
-		
+		//z³o¿onoœæ Collections.sort
 		graph.sort();
 		graph.saveBefore();
-		
-		//for(int j=0;j<graph.getFirstNodes();j++){
 		
 		for (int[] is : seq) {
 			graph.restoreInitOrder();
@@ -42,6 +41,7 @@ public class LFAlg {
 			System.out.println("LF round: " +j + " of " + seq.size());
 			for (Node node : graph.getNodes()) {
 				iv =  new ArrayList<Integer>();
+				//zbieramy kolory s¹siadów i sortujemy listê
 				for(Node neighbour: node.getNeighbours()){
 					iv.add(neighbour.getColour());
 				}
@@ -58,22 +58,22 @@ public class LFAlg {
 							}
 							
 							node.setColour(c);
-							int[] s=  {5,4,2,1,3,6};
+							/*int[] s=  {5,4,2,1,3,6};
 							if(is[0]==s[0] &&
 									is[1]==s[1] &&
 									is[2]==s[2] 
-								) {System.out.println("col set: " + c );};
+								) {System.out.println("col set: " + c );};*/
 							if(l<c) l++;
 							break;
 						}
 					}else if(i==iv.size()-1){
 						//c++;
 						node.setColour(c);
-						int[] s=  {5,4,2,1,3,6};
+						/*int[] s=  {5,4,2,1,3,6};
 						if(is[0]==s[0] &&
 								is[1]==s[1] &&
 								is[2]==s[2] 
-							) {System.out.println("col set: " + c );};
+							) {System.out.println("col set: " + c );};*/
 						//System.out.println("col set: " + c);
 						if(l<c) l++;
 						break;

@@ -67,8 +67,6 @@ public class Graph {
 				break;
 			}
 		}
-		//System.out.println("C:" + count);
-		
 		return count;
 	}
 	
