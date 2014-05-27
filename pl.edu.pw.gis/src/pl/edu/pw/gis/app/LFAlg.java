@@ -60,7 +60,7 @@ public class LFAlg {
 		graph.clearColouring();
 		graph.resort(seq);
 		round++;		
-		System.out.println("LF round: " +round + " of " + seqsize);
+		//System.out.println("LF round: " +round + " of " + seqsize);
 		for (Node node : graph.getNodes()) {
 			iv =  new ArrayList<Integer>();
 			//zbieramy kolory s¹siadów i sortujemy listê
@@ -110,7 +110,7 @@ public class LFAlg {
 			bestseq = seq;
 			//
 		}
-		System.out.println("Q:" + q + " l: " + l);
+		//System.out.println("Q:" + q + " l: " + l);
 		l=1;
 	}
 	

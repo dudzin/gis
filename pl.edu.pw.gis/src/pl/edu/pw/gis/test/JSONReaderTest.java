@@ -27,7 +27,7 @@ public class JSONReaderTest {
 	public void graphInitTest() {
 		
 		graphs = reader.readGraphs();
-		assertEquals(4, graphs.size());
+		assertEquals(20, graphs.size());
 		
 		assertEquals(graphsTemplate.get(0).getNodes().size(), graphs.get(0).getNodes().size());
 		assertEquals(5, graphs.get(1).getNodes().size());

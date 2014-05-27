@@ -62,9 +62,9 @@ public class Graph {
 		int l = seq.length;
 		//System.out.println("length: " + l + " seq: "); 
 		for(int i =0;i <l;i++){
-			System.out.print(seq[i]);
+			//System.out.print(seq[i]);
 		}
-		System.out.println();
+		//System.out.println();
 		for(int i =0; i< l;i++){
 			
 			nodes.set(i, before.get(seq[i]-1));

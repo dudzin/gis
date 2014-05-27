@@ -53,7 +53,7 @@ public class LFAlgTest {
 		graphs.get(2).sort();
 		graphs.get(2).saveBefore();
 		for (int[] is : seq) {
-			System.out.println("Seq: " + is[0]+ is[1] + is[2]);
+			//System.out.println("Seq: " + is[0]+ is[1] + is[2]);
 		}
 		System.out.println("Seq3: " + seq.get(3)[0]+ seq.get(3)[1] + seq.get(3)[2]);
 		
@@ -142,6 +142,21 @@ public class LFAlgTest {
 		
 	}
 	
+	@Test
+	public void performanceTest() {
+		ArrayList<Node> bestColouring;
+		for(int i =5 ;i<graphs.size(); i++){
+			lfalg.setGraph(graphs.get(i));
+			int q = lfalg.exec();
+			bestColouring = lfalg.getBestGraph().getNodes();
+			System.out.println("\nlancuch" + (i-4) + " Graph Statistics:");
+			System.out.println("Q 	          : " + q);
+			System.out.println("Sort 	  Time: " + lfalg.getSortTime());
+			System.out.println("Execution Time: " + lfalg.getExecutionTime());
+			System.out.println("Breaks   Count: " + lfalg.getRejectedCount() + "\n");
+		
+		}
 	
+	}
 	
 }
