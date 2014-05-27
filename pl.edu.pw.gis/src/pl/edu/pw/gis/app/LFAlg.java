@@ -12,8 +12,10 @@ public class LFAlg {
 	private Graph bestGraph;
 	private int l;
 	private int q;
+
 	//private int qmax;
-    // test for commit
+	private int qmax;
+
 	
 	
 	public void sort(){
