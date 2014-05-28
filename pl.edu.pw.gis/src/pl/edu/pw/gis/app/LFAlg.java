@@ -22,6 +22,7 @@ public class LFAlg {
 	private long sortTime;
 	private int rejectedCount;
 	private int[] bestseq;
+	private long singleExecTime;
 	
 	public void sort(){
 		graph.sort();
@@ -55,7 +56,7 @@ public class LFAlg {
 	
 	
 	public void exec(int[] seq, int seqsize){
-		
+		long startTime = System.nanoTime();
 		graph.restoreInitOrder();
 		graph.clearColouring();
 		graph.resort(seq);
@@ -103,6 +104,8 @@ public class LFAlg {
 				return;
 				//break;
 			}		
+			
+			singleExecTime = System.nanoTime() - startTime;
 		}
 		if(l<q || q==0){
 			q=l;
@@ -218,6 +221,14 @@ public class LFAlg {
 
 	public void setBestseq(int[] bestseq) {
 		this.bestseq = bestseq;
+	}
+
+	public long getSingleExecTime() {
+		return singleExecTime;
+	}
+
+	public void setSingleExecTime(long singleExecTime) {
+		this.singleExecTime = singleExecTime;
 	}
 	
 }

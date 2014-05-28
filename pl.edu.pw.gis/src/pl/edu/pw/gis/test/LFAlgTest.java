@@ -159,4 +159,28 @@ public class LFAlgTest {
 	
 	}
 	
+	@Test
+	public void oneRoundTest(){
+		System.out.println("\nSingle Round Test");
+		long startTime;
+		long singleExecTime;
+		for(int i =5 ;i<graphs.size(); i++){
+			lfalg.setGraph(graphs.get(i));
+			startTime = System.nanoTime();
+				for(int j =0;j<10; j++){
+					lfalg.setQ(100);
+					int[] seq = new int[0] ;
+					lfalg.exec(seq, 1);
+				}
+			singleExecTime = System.nanoTime() - startTime;	
+			
+			System.out.println("\nlancuch" + (i-4) + " Graph Statistics:");
+			System.out.println("Q 	          : " + lfalg.getQ());
+			System.out.println("Execution Time: " + singleExecTime);
+		
+		}
+		
+	}
+	
+	
 }
