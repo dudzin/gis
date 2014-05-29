@@ -1,31 +1,37 @@
 package pl.edu.pw.gis.app;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.StringTokenizer;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import pl.edu.pw.gis.model.Graph;
 import pl.edu.pw.gis.model.Node;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.StringTokenizer;
 
 public class JSONReader {
 	JSONParser parser;
 	ArrayList<Graph> graphs;
 	ArrayList<String> graphNames;
 	int count;
+    String fileName;
 	public JSONReader(){
-		
+
+        fileName = "graph.json";
 		parser = new JSONParser();
 		
 	}
+
+    public JSONReader(String fileName){
+        this.fileName = fileName;
+        parser = new JSONParser();
+
+    }
 	
 	public ArrayList<Graph> readGraphs() {
 		
@@ -34,7 +40,7 @@ public class JSONReader {
 		Graph graph = null;
 		 
 		try {
-			Object obj = parser.parse(new FileReader("graphs.json"));
+			Object obj = parser.parse(new FileReader(fileName));
 			JSONObject jsonObject = (JSONObject) obj;
 			getGraphNames(jsonObject);
 			JSONArray msg;
